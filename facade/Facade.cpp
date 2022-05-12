@@ -15,33 +15,27 @@
  * implement more complex subsystem functionality
  * and have no knowledge of the facade
  */
-class SubsystemA
-{
+class SubsystemA {
 public:
-  void suboperation()
-  {
+  void suboperation() {
     std::cout << "Subsystem A method" << std::endl;
     // ...
   }
   // ...
 };
 
-class SubsystemB
-{
+class SubsystemB {
 public:
-  void suboperation()
-  {
+  void suboperation() {
     std::cout << "Subsystem B method" << std::endl;
     // ...
   }
   // ...
 };
 
-class SubsystemC
-{
+class SubsystemC {
 public:
-  void suboperation()
-  {
+  void suboperation() {
     std::cout << "Subsystem C method" << std::endl;
     // ...
   }
@@ -53,25 +47,22 @@ public:
  * delegates client requests to appropriate subsystem object
  * and unified interface that is easier to use
  */
-class Facade
-{
+class Facade {
 public:
   Facade() : subsystemA(), subsystemB(), subsystemC() {}
-  
-  void operation1()
-  {
+
+  void operation1() {
     subsystemA->suboperation();
     subsystemB->suboperation();
     // ...
   }
-  
-  void operation2()
-  {
+
+  void operation2() {
     subsystemC->suboperation();
     // ...
   }
   // ...
-  
+
 private:
   SubsystemA *subsystemA;
   SubsystemB *subsystemB;
@@ -79,14 +70,13 @@ private:
   // ...
 };
 
-
-int main()
-{
+// Façade 模式在高层提供了一个统一的接口，解耦了系统。
+int main() {
   Facade *facade = new Facade();
-  
+
   facade->operation1();
   facade->operation2();
   delete facade;
-  
+
   return 0;
 }

@@ -14,12 +14,11 @@
  * Target
  * defines specific interface that Client uses
  */
-class Target
-{
+class Target {
 public:
   virtual ~Target() {}
-  
-  virtual void request() = 0;
+
+  virtual void request() = 0; // client已经设计好的接口
   // ...
 };
 
@@ -28,15 +27,12 @@ public:
  * all requests get delegated to the Adaptee which defines
  * an existing interface that needs adapting
  */
-class Adaptee
-{
+class Adaptee {
 public:
   ~Adaptee() {}
-  
-  void specificRequest()
-  {
-    std::cout << "specific request" << std::endl;
-  }
+
+  // 第三方库的接口
+  void specificRequest() { std::cout << "specific request" << std::endl; }
   // ...
 };
 
@@ -46,22 +42,21 @@ public:
  * to request on a Target by extending both classes
  * ie adapts the interface of Adaptee to the Target interface
  */
-class Adapter : public Target, private Adaptee
-{
+// 通过 private 继承Adaptee 获得【实现继承】的效果，
+// 而通过 public 继承 Target 获得【接口继承】的效果
+// private 继承后，父类中的接口都变为 private，当然只能是实现继承了。
+class Adapter : public Target, private Adaptee {
 public:
-  virtual void request()
-  {
-    specificRequest();
-  }
+  virtual void request() { specificRequest(); }
   // ...
 };
 
-
-int main()
-{
+// Adapter
+// 模式提供了将一个类（第三方库）的接口转化为客户（购买使用者）希望的接口
+int main() {
   Target *t = new Adapter();
   t->request();
   delete t;
-  
+
   return 0;
 }

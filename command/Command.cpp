@@ -15,13 +15,9 @@
  * knows how to perform the operations associated
  * with carrying out a request
  */
-class Receiver
-{
+class Receiver { //请求的接收者（处理者）
 public:
-  void action()
-  {
-    std::cout << "Receiver: execute action" << std::endl;
-  }
+  void action() { std::cout << "Receiver: execute action" << std::endl; }
   // ...
 };
 
@@ -29,8 +25,7 @@ public:
  * Command
  * declares an interface for all commands
  */
-class Command
-{
+class Command {
 public:
   virtual ~Command() {}
   virtual void execute() = 0;
@@ -45,25 +40,19 @@ protected:
  * implements execute by invoking the corresponding
  * operation(s) on Receiver
  */
-class ConcreteCommand : public Command
-{
+class ConcreteCommand : public Command {
 public:
-  ConcreteCommand( Receiver *r ) : receiver( r ) {}
-  
-  ~ConcreteCommand()
-  {
-    if ( receiver )
-    {
+  ConcreteCommand(Receiver *r) : receiver(r) {}
+
+  ~ConcreteCommand() {
+    if (receiver) {
       delete receiver;
     }
   }
-  
-  void execute()
-  {
-    receiver->action();
-  }
+
+  void execute() { receiver->action(); }
   // ...
-  
+
 private:
   Receiver *receiver;
   // ...
@@ -73,19 +62,13 @@ private:
  * Invoker
  * asks the command to carry out the request
  */
-class Invoker
-{
+class Invoker {
 public:
-  void set( Command *c )
-  {
-    command = c;
-  }
-  
-  void confirm()
-  {
-    if ( command )
-    {
-      command->execute();  
+  void set(Command *c) { command = c; }
+
+  void confirm() {
+    if (command) {
+      command->execute();
     }
   }
   // ...
@@ -95,14 +78,12 @@ private:
   // ...
 };
 
+int main() {
+  ConcreteCommand command(new Receiver());
 
-int main()
-{
-  ConcreteCommand command( new Receiver() );
-  
   Invoker invoker;
-  invoker.set( &command );
+  invoker.set(&command);
   invoker.confirm();
-  
+
   return 0;
 }

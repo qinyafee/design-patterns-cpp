@@ -15,10 +15,10 @@
  * defines an interface for encapsulating the behavior associated
  * with a particular state of the Context
  */
-class State
-{
+class State {
 public:
-  virtual ~State() { /* ... */ }
+  virtual ~State() { /* ... */
+  }
   virtual void handle() = 0;
   // ...
 };
@@ -28,27 +28,21 @@ public:
  * each subclass implements a behavior associated with a state
  * of the Context
  */
-class ConcreteStateA : public State
-{
+class ConcreteStateA : public State {
 public:
-  ~ConcreteStateA() { /* ... */ }
-  
-  void handle()
-  {
-    std::cout << "State A handled." << std::endl;
+  ~ConcreteStateA() { /* ... */
   }
+
+  void handle() { std::cout << "State A handled." << std::endl; }
   // ...
 };
 
-class ConcreteStateB : public State
-{
+class ConcreteStateB : public State {
 public:
-  ~ConcreteStateB() { /* ... */ }
-  
-  void handle()
-  {
-    std::cout << "State B handled." << std::endl;
+  ~ConcreteStateB() { /* ... */
   }
+
+  void handle() { std::cout << "State B handled." << std::endl; }
   // ...
 };
 
@@ -56,29 +50,21 @@ public:
  * Context
  * defines the interface of interest to clients
  */
-class Context
-{
+class Context {
 public:
-  Context() : state() { /* ... */ }
-  
-  ~Context()
-  {
-    delete state;
+  Context() : state() { /* ... */
   }
-  
-  void setState( State* const s )
-  {
-    if ( state )
-    {
+
+  ~Context() { delete state; }
+
+  void setState(State *const s) {
+    if (state) {
       delete state;
     }
     state = s;
   }
-  
-  void request()
-  {
-    state->handle();
-  }
+
+  void request() { state->handle(); }
   // ...
 
 private:
@@ -86,17 +72,17 @@ private:
   // ...
 };
 
-
-int main()
-{
+// 将状态逻辑和动作实现进行分离, 将 Switch/Case 每一个分支都封装到独立的类中。
+// 缺点：很难看到整个的状态逻辑图，这也带来了代码的维护问题
+int main() {
   Context *context = new Context();
-  
-  context->setState( new ConcreteStateA() );
+
+  context->setState(new ConcreteStateA());
   context->request();
-  
-  context->setState( new ConcreteStateB() );
+
+  context->setState(new ConcreteStateB());
   context->request();
-  
+
   delete context;
   return 0;
 }

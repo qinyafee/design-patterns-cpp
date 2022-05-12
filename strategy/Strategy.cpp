@@ -14,10 +14,10 @@
  * Strategy
  * declares an interface common to all supported algorithms
  */
-class Strategy
-{
+class Strategy {
 public:
-  virtual ~Strategy() { /* ... */ }
+  virtual ~Strategy() { /* ... */
+  }
   virtual void algorithmInterface() = 0;
   // ...
 };
@@ -26,39 +26,30 @@ public:
  * Concrete Strategies
  * implement the algorithm using the Strategy interface
  */
-class ConcreteStrategyA : public Strategy
-{
+class ConcreteStrategyA : public Strategy {
 public:
-  ~ConcreteStrategyA() { /* ... */ }
-  
-  void algorithmInterface()
-  {
-    std::cout << "Concrete Strategy A" << std::endl;
+  ~ConcreteStrategyA() { /* ... */
   }
+
+  void algorithmInterface() { std::cout << "Concrete Strategy A" << std::endl; }
   // ...
 };
 
-class ConcreteStrategyB : public Strategy
-{
+class ConcreteStrategyB : public Strategy {
 public:
-  ~ConcreteStrategyB() { /* ... */ }
-  
-  void algorithmInterface()
-  {
-    std::cout << "Concrete Strategy B" << std::endl;
+  ~ConcreteStrategyB() { /* ... */
   }
+
+  void algorithmInterface() { std::cout << "Concrete Strategy B" << std::endl; }
   // ...
 };
 
-class ConcreteStrategyC : public Strategy
-{
+class ConcreteStrategyC : public Strategy {
 public:
-  ~ConcreteStrategyC() { /* ... */ }
-  
-  void algorithmInterface()
-  {
-    std::cout << "Concrete Strategy C" << std::endl;
+  ~ConcreteStrategyC() { /* ... */
   }
+
+  void algorithmInterface() { std::cout << "Concrete Strategy C" << std::endl; }
   // ...
 };
 
@@ -66,20 +57,13 @@ public:
  * Context
  * maintains a reference to a Strategy object
  */
-class Context
-{
+class Context {
 public:
-  Context( Strategy* const s ) : strategy( s ) {}
-  
-  ~Context()
-  {
-    delete strategy;
-  }
-  
-  void contextInterface()
-  {
-    strategy->algorithmInterface();
-  }
+  Context(Strategy *const s) : strategy(s) {}
+
+  ~Context() { delete strategy; }
+
+  void contextInterface() { strategy->algorithmInterface(); }
   // ...
 
 private:
@@ -87,11 +71,9 @@ private:
   // ...
 };
 
-
-int main()
-{
-  Context context( new ConcreteStrategyA() );
+int main() {
+  Context context(new ConcreteStrategyA());
   context.contextInterface();
-  
+
   return 0;
 }
